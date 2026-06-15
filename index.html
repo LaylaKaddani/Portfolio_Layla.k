@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layla KADDANI – Portfolio Cybersécurité</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ================================================
+       HERO
+    ================================================ */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 2.5rem 4rem; overflow: hidden; z-index: 1;
+    }
+    #hero::after {
+      content: ''; position: absolute; top: 10%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      pointer-events: none; animation: pulse-glow 6s ease-in-out infinite;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .hero-text { flex: 1; min-width: 300px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-mono); font-size: .72rem;
+      color: var(--clr-accent2); letter-spacing: .15em; text-transform: uppercase;
+      border: 1px solid rgba(0,255,157,.3); padding: .35rem 1rem;
+      border-radius: 100px; margin-bottom: 1.5rem;
+      background: rgba(0,255,157,.05); animation: fade-down .6s ease both;
+    }
+    .hero-badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--clr-accent2); animation: blink 1.5s ease infinite;
+    }
+    .hero-name {
+      font-family: var(--font-display); font-size: clamp(2.8rem,7vw,5.5rem);
+      font-weight: 800; line-height: 1.05; color: var(--clr-heading);
+      margin-bottom: .5rem; animation: fade-up .6s .1s ease both;
+    }
+    .hero-name .accent { color: var(--clr-accent); }
+    .hero-title {
+      font-family: var(--font-mono); font-size: clamp(.9rem,2vw,1.1rem);
+      color: var(--clr-accent); margin-bottom: 1.5rem;
+      animation: fade-up .6s .2s ease both;
+    }
+    .typed-text {
+      border-right: 2px solid var(--clr-accent);
+      white-space: nowrap; overflow: hidden; display: inline-block;
+      animation: typing 3s steps(40,end) both, blink-cursor .8s step-end infinite;
+    }
+    @keyframes typing       { from{width:0} to{width:100%} }
+    @keyframes blink-cursor { 50%{border-color:transparent} }
+
+    .hero-desc {
+      font-size: 1.05rem; color: var(--clr-muted); max-width: 540px;
+      margin-bottom: 2.5rem; animation: fade-up .6s .3s ease both;
+    }
+    .hero-desc strong { color: var(--clr-accent2); }
+    .hero-cta  { display:flex; gap:1rem; flex-wrap:wrap; animation: fade-up .6s .4s ease both; }
+    .hero-stats{ display:flex; gap:2.5rem; margin-top:2.5rem; flex-wrap:wrap; animation: fade-up .6s .5s ease both; }
+    .stat-item { text-align:center; }
+    .stat-num  { font-family:var(--font-display); font-size:2rem; font-weight:800; color:var(--clr-accent); display:block; }
+    .stat-label{ font-family:var(--font-mono); font-size:.68rem; color:var(--clr-muted); text-transform:uppercase; letter-spacing:.1em; }
+
+    /* Photo */
+    .hero-photo-wrap { position:relative; flex-shrink:0; animation: fade-up .8s .2s ease both; }
+    .hero-photo-wrap::before {
+      content:''; position:absolute; inset:-3px; border-radius:50%;
+      background: conic-gradient(var(--clr-accent),var(--clr-accent2),var(--clr-accent3),var(--clr-accent));
+      animation: spin 6s linear infinite; z-index:-1;
+    }
+    .hero-photo,.hero-photo-placeholder {
+      width:240px; height:240px; border-radius:50%; border:4px solid var(--clr-bg); display:block;
+    }
+    .hero-photo { object-fit:cover; object-position:top; }
+    .hero-photo-placeholder {
+      background:var(--clr-card); display:flex; align-items:center;
+      justify-content:center; font-size:5rem; color:var(--clr-accent);
+    }
+
+    /* ================================================
+       À PROPOS
+    ================================================ */
+    #apropos { background: var(--clr-surface); }
+    .apropos-grid { display:flex; gap:4rem; flex-wrap:wrap; }
+    .apropos-left { flex:1.2; min-width:280px; }
+    .apropos-right{ flex:1;   min-width:280px; }
+
+    .apropos-desc { font-size:1.05rem; line-height:1.9; color:var(--clr-text); margin-bottom:1.5rem; }
+    .apropos-desc strong { color: var(--clr-accent); }
+
+    .qualities-grid { display:flex; flex-wrap:wrap; gap:1rem; }
+    .quality-card {
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); padding:1.25rem;
+      display:flex; align-items:flex-start; gap:1rem;
+      transition:var(--transition); flex:1; min-width:200px;
+    }
+    .quality-card:hover { border-color:var(--clr-accent); transform:translateY(-3px); box-shadow:0 0 20px rgba(0,212,255,.1); }
+    .quality-icon { font-size:1.4rem; color:var(--clr-accent); flex-shrink:0; margin-top:.1rem; }
+    .quality-card h4 { font-family:var(--font-display); font-size:.9rem; font-weight:700; color:var(--clr-heading); margin-bottom:.25rem; }
+    .quality-card p  { font-size:.82rem; color:var(--clr-muted); }
+
+    /* Certifications */
+    .certs-list { display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem; }
+    .cert-card {
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-left:3px solid var(--clr-accent2); border-radius:var(--radius);
+      padding:1rem 1.4rem; transition:var(--transition);
+    }
+    .cert-card:hover { transform:translateX(6px); border-left-color:var(--clr-accent); }
+    .cert-card h4 { font-family:var(--font-display); font-size:.9rem; color:var(--clr-heading); margin-bottom:.25rem; }
+    .cert-card .cert-date { font-family:var(--font-mono); font-size:.72rem; color:var(--clr-accent2); }
+
+    /* Langues */
+    .lang-section { margin-top:1.5rem; }
+    .info-box {
+      margin-top:1.5rem; background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); padding:1.25rem;
+    }
+    .info-box-label { font-family:var(--font-mono); font-size:.72rem; color:var(--clr-muted); margin-bottom:.5rem; }
+
+    /* ================================================
+       COMPÉTENCES
+    ================================================ */
+    #competences { background: var(--clr-bg); }
+    .skills-wrapper { display:flex; flex-wrap:wrap; gap:2rem; }
+    .skill-category {
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); padding:2rem; transition:var(--transition);
+      flex:1; min-width:280px;
+    }
+    .skill-category:hover { border-color:var(--clr-accent); box-shadow:0 0 30px rgba(0,212,255,.08); }
+    .skill-cat-header { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
+    .skill-cat-icon {
+      width:40px; height:40px; background:rgba(0,212,255,.1); border-radius:10px;
+      display:flex; align-items:center; justify-content:center; color:var(--clr-accent);
+      font-size:1.1rem; border:1px solid rgba(0,212,255,.2);
+    }
+    .skill-cat-header h3 { font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--clr-heading); }
+
+    .skill-tags  { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .skill-tag {
+      font-family:var(--font-mono); font-size:.72rem; padding:.3rem .85rem;
+      border-radius:100px; border:1px solid var(--clr-border);
+      color:var(--clr-text); transition:var(--transition); cursor:default;
+    }
+    .skill-tag:hover { border-color:var(--clr-accent); color:var(--clr-accent); background:rgba(0,212,255,.05); }
+    .skill-tag.purple { border-color:rgba(123,94,167,.4); color:#b29fd4; }
+
+    .soft-skill-item {
+      display:flex; align-items:center; gap:.75rem; padding:.6rem 0;
+      border-bottom:1px solid rgba(255,255,255,.04); font-size:.88rem;
+    }
+    .soft-skill-item:last-child { border-bottom:none; }
+    .soft-skill-item i { color:var(--clr-accent2); width:18px; }
+    .skills-sub-label { font-size:.78rem; color:var(--clr-muted); margin-bottom:.75rem; }
+
+    /* ================================================
+       EXPÉRIENCES
+    ================================================ */
+    #experiences { background: var(--clr-bg); }
+    .exp-grid { display:flex; flex-wrap:wrap; gap:2rem; }
+    .exp-card {
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); padding:2rem; transition:var(--transition);
+      position:relative; overflow:hidden; flex:1; min-width:300px;
+    }
+    .exp-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--clr-accent),var(--clr-accent2));
+      transform:scaleX(0); transform-origin:left; transition:transform var(--transition);
+    }
+    .exp-card:hover { border-color:rgba(0,212,255,.4); box-shadow:0 8px 40px rgba(0,212,255,.08); }
+    .exp-card:hover::before { transform:scaleX(1); }
+    .exp-period  { font-family:var(--font-mono); font-size:.72rem; color:var(--clr-accent); margin-bottom:.5rem; letter-spacing:.08em; }
+    .exp-card h3 { font-family:var(--font-display); font-size:1.15rem; font-weight:700; color:var(--clr-heading); margin-bottom:.25rem; }
+    .exp-company { font-size:.85rem; color:var(--clr-accent2); margin-bottom:1rem; }
+    .exp-bullets { list-style:none; margin-bottom:1.25rem; }
+    .exp-bullets li { font-size:.87rem; color:var(--clr-muted); padding:.35rem 0 .35rem 1.25rem; position:relative; }
+    .exp-bullets li::before { content:'▸'; position:absolute; left:0; color:var(--clr-accent); }
+
+    /* ================================================
+       PROJETS
+    ================================================ */
+    #projets { background: var(--clr-surface); }
+    .projects-filter { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+    .filter-btn {
+      font-family:var(--font-mono); font-size:.72rem; padding:.45rem 1.2rem;
+      border-radius:100px; border:1px solid var(--clr-border); background:transparent;
+      color:var(--clr-muted); cursor:pointer; transition:var(--transition); letter-spacing:.08em;
+    }
+    .filter-btn:hover,.filter-btn.active {
+      border-color:var(--clr-accent); color:var(--clr-accent); background:rgba(0,212,255,.08);
+    }
+
+    .projects-grid { display:flex; flex-wrap:wrap; gap:2rem; }
+    .project-card {
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); overflow:hidden; transition:var(--transition);
+      cursor:pointer; display:flex; flex-direction:column;
+      flex:1; min-width:300px; max-width:380px;
+    }
+    .project-card:hover {
+      border-color:rgba(0,212,255,.4); transform:translateY(-6px);
+      box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 30px rgba(0,212,255,.08);
+    }
+    .project-thumb {
+      height:160px; display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden; font-size:3.5rem;
+    }
+    .project-thumb::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to bottom,transparent 60%,var(--clr-card));
+    }
+    .project-num {
+      position:absolute; top:1rem; left:1rem;
+      font-family:var(--font-mono); font-size:.68rem; color:var(--clr-accent);
+      background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.3);
+      padding:.2rem .6rem; border-radius:4px; z-index:1;
+    }
+    .project-body { padding:1.5rem; flex:1; display:flex; flex-direction:column; }
+    .project-body h3 { font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--clr-heading); margin-bottom:.5rem; }
+    .project-body p  { font-size:.85rem; color:var(--clr-muted); margin-bottom:1.25rem; flex:1; }
+    .project-tags    { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .project-tag {
+      font-family:var(--font-mono); font-size:.68rem; padding:.2rem .6rem; border-radius:4px;
+      background:rgba(123,94,167,.15); border:1px solid rgba(123,94,167,.3); color:#b29fd4;
+    }
+
+    /* ================================================
+       CONTACT
+    ================================================ */
+    #contact { background: var(--clr-bg); }
+    .contact-wrapper { display:flex; gap:4rem; flex-wrap:wrap; align-items:flex-start; }
+    .contact-info { flex:1; min-width:280px; }
+    .contact-info h3 { font-family:var(--font-display); font-size:1.4rem; font-weight:700; color:var(--clr-heading); margin-bottom:.75rem; }
+    .contact-info p  { font-size:.95rem; color:var(--clr-muted); margin-bottom:2rem; line-height:1.8; }
+    .contact-info p strong { color:var(--clr-accent); }
+    .contact-links { display:flex; flex-direction:column; gap:1rem; }
+    .contact-link {
+      display:flex; align-items:center; gap:1rem;
+      background:var(--clr-card); border:1px solid var(--clr-border);
+      border-radius:var(--radius); padding:1rem 1.5rem; transition:var(--transition);
+    }
+    .contact-link:hover { border-color:var(--clr-accent); transform:translateX(6px); }
+    .contact-link-icon {
+      width:42px; height:42px; border-radius:10px; background:rgba(0,212,255,.1);
+      border:1px solid rgba(0,212,255,.2); display:flex; align-items:center;
+      justify-content:center; color:var(--clr-accent); font-size:1.1rem; flex-shrink:0;
+    }
+    .contact-link-text strong { display:block; font-size:.82rem; color:var(--clr-heading); margin-bottom:.1rem; font-family:var(--font-display); }
+    .contact-link-text span   { font-family:var(--font-mono); font-size:.75rem; color:var(--clr-muted); }
+
+    /* Formulaire */
+    .contact-form-wrap { flex:1.2; min-width:280px; }
+    .contact-form      { display:flex; flex-direction:column; gap:1.25rem; }
+    .form-group        { display:flex; flex-direction:column; gap:.4rem; }
+    .form-group label  { font-family:var(--font-mono); font-size:.72rem; color:var(--clr-muted); letter-spacing:.1em; text-transform:uppercase; }
+    .form-group input,
+    .form-group textarea {
+      background:var(--clr-card); border:1px solid var(--clr-border); border-radius:var(--radius);
+      padding:.85rem 1.1rem; color:var(--clr-text); font-family:var(--font-body);
+      font-size:.9rem; transition:var(--transition); outline:none; resize:none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color:var(--clr-accent); box-shadow:0 0 0 3px rgba(0,212,255,.1); }
+    .form-group textarea { min-height:130px; }
+    #form-feedback { display:none; font-family:var(--font-mono); font-size:.8rem; text-align:center; margin-top:.5rem; }
+
+    /* ================================================
+       RESPONSIVE
+    ================================================ */
+    @media (max-width:900px) {
+      .hero-inner,.apropos-grid,.contact-wrapper { flex-direction:column; }
+      .hero-inner { align-items:center; text-align:center; }
+      .hero-cta,.hero-stats { justify-content:center; }
+      .hero-photo-wrap { order:-1; }
+    }
+    @media (max-width:600px) {
+      .project-card { max-width:100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="nav-logo">LK<span>.cyber</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="hero-inner">
+
+    <div class="hero-text">
+      <div class="hero-badge">Disponible pour alternance 2025–2028</div>
+
+      <h1 class="hero-name">
+        Layla<br /><span class="accent">KADDANI</span>
+      </h1>
+
+      <p class="hero-title">
+        <span class="typed-text">Étudiante Ingénieure en Cybersécurité</span>
+      </p>
+
+      <p class="hero-desc">
+        Passionnée par la protection des systèmes d'information, je combine une base solide
+        en informatique embarquée avec des compétences en sécurité réseau, IoT et développement.<br /><br />
+        À la recherche d'un <strong>contrat d'apprentissage 24 mois</strong> en cybersécurité — dès 2025.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#projets" class="btn btn-primary">
+          <i class="fa-solid fa-rocket"></i> Voir mes projets
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <i class="fa-solid fa-paper-plane"></i> Me contacter
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" data-target="7" data-suffix="">0</span>
+          <span class="stat-label">Projets</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="3" data-suffix="">0</span>
+          <span class="stat-label">Stages</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="3" data-suffix="">0</span>
+          <span class="stat-label">Certifications</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Bac+5</span>
+          <span class="stat-label">Cycle ingénieur</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap">
+      <!--
+        PHOTO : remplace ce bloc par :
+        <img src="images/photo.jpg" alt="Layla KADDANI" class="hero-photo" />
+      -->
+      <div class="hero-photo-placeholder">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== À PROPOS ===================== -->
+<section id="apropos">
+  <div class="section-inner">
+    <div class="section-tag">Qui suis-je ?</div>
+    <h2 class="section-title">À <span>propos</span></h2>
+    <div class="section-line"></div>
+
+    <div class="apropos-grid">
+
+      <!-- Gauche : description + qualités -->
+      <div class="apropos-left">
+        <p class="apropos-desc">
+          Étudiante en cycle ingénieur en cybersécurité à l'<strong>EiJV – École d'ingénieurs
+          Jules Verne d'Amiens</strong> (Bac+5, label SecNumedu), diplômée d'un
+          <strong>DUT Informatique option Embarquée</strong> de l'EST d'Oujda, Maroc.
+        </p>
+        <p class="apropos-desc">
+          À travers 7 projets concrets — de la maquette de ville intelligente IoT à la
+          reconnaissance faciale anti-spoofing — j'ai développé une culture technique solide
+          en <strong>sécurité des systèmes</strong>, <strong>réseaux</strong>,
+          <strong>IoT embarqué</strong> et <strong>scripting</strong>.
+        </p>
+        <p class="apropos-desc">
+          Mon objectif : décrocher un <strong>contrat d'alternance en cybersécurité</strong>
+          pour apporter une valeur immédiate à une équipe tout en approfondissant mes compétences
+          (SOC, audit, pentest, analyse forensique).
+        </p>
+
+        <div class="qualities-grid" style="margin-top:1.5rem;">
+          <div class="quality-card reveal">
+            <span class="quality-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <div>
+              <h4>Curiosité technique</h4>
+              <p>Apprentissage continu, veille technologique active.</p>
+            </div>
+          </div>
+          <div class="quality-card reveal reveal-delay-1">
+            <span class="quality-icon"><i class="fa-solid fa-brain"></i></span>
+            <div>
+              <h4>Esprit d'analyse</h4>
+              <p>Résolution de problèmes complexes, approche systémique.</p>
+            </div>
+          </div>
+          <div class="quality-card reveal reveal-delay-2">
+            <span class="quality-icon"><i class="fa-solid fa-person-running"></i></span>
+            <div>
+              <h4>Autonomie</h4>
+              <p>Projets menés de A à Z, en solo et en équipe.</p>
+            </div>
+          </div>
+          <div class="quality-card reveal reveal-delay-3">
+            <span class="quality-icon"><i class="fa-solid fa-shield-halved"></i></span>
+            <div>
+              <h4>Réflexe Cyber</h4>
+              <p>Sécurité intégrée à chaque projet réalisé.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Droite : certifications + langues + mobilité -->
+      <div class="apropos-right reveal">
+        <h3 style="font-family:var(--font-display);font-size:1.05rem;color:var(--clr-heading);margin-bottom:1.25rem;">
+          <i class="fa-solid fa-certificate" style="color:var(--clr-accent);margin-right:.5rem;"></i>
+          Certifications
+        </h3>
+        <div class="certs-list">
+          <div class="cert-card">
+            <h4>Club EBIOS – Introduction à EBIOS Risk Manager</h4>
+            <span class="cert-date"><i class="fa-regular fa-calendar"></i> 16 avril 2026</span>
+          </div>
+          <div class="cert-card">
+            <h4>SecNumAcadémie – ANSSI</h4>
+            <span class="cert-date"><i class="fa-regular fa-calendar"></i> 17 février 2026</span>
+          </div>
+          <div class="cert-card">
+            <h4>Cisco CCNA – Networking Essentials</h4>
+            <span class="cert-date"><i class="fa-regular fa-calendar"></i> 3 février 2026</span>
+          </div>
+        </div>
+
+        <h3 style="font-family:var(--font-display);font-size:1.05rem;color:var(--clr-heading);margin-bottom:1.25rem;">
+          <i class="fa-solid fa-globe" style="color:var(--clr-accent);margin-right:.5rem;"></i>
+          Langues
+        </h3>
+        <div class="lang-section progress-section">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>🇫🇷 Français</span><span>Avancé</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>🇬🇧 Anglais</span><span>Avancé</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>🇲🇦 Arabe</span><span>Maternelle</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="100"></div></div>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.5rem;">
+          <p class="info-box-label">MOBILITÉ</p>
+          <p style="font-size:.88rem;color:var(--clr-text);">
+            <i class="fa-solid fa-location-dot" style="color:var(--clr-accent);margin-right:.5rem;"></i>Amiens, France
+            &nbsp;|&nbsp;
+            <i class="fa-solid fa-car" style="color:var(--clr-accent2);margin-right:.5rem;"></i>Permis B &amp; Mobilité nationale
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPÉTENCES ===================== -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-tag">Stack technique</div>
+    <h2 class="section-title">Compé<span>tences</span></h2>
+    <div class="section-line"></div>
+
+    <div class="skills-wrapper">
+
+      <!-- Sécurité -->
+      <div class="skill-category reveal">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Sécurité & Gouvernance</h3>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Principes CIA</span><span>Maîtrisé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Authentification &amp; RBAC</span><span>Maîtrisé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Journalisation &amp; détection</span><span>Avancé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Analyse de risques (EBIOS)</span><span>Initié</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Anti-spoofing / Liveness</span><span>Avancé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+        </div>
+      </div>
+
+      <!-- Réseaux -->
+      <div class="skill-category reveal reveal-delay-1">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon"><i class="fa-solid fa-server"></i></div>
+          <h3>Systèmes &amp; Réseaux</h3>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Linux</span><span>Avancé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Windows Server / Active Directory</span><span>Intermédiaire</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>TCP/IP, DNS, HTTP, SSH</span><span>Avancé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Wireshark</span><span>Intermédiaire</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>MQTT / Mosquitto</span><span>Avancé</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div>
+        </div>
+      </div>
+
+      <!-- Développement -->
+      <div class="skill-category reveal reveal-delay-2">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Développement &amp; IoT</h3>
+        </div>
+        <p class="skills-sub-label">Langages &amp; Frameworks</p>
+        <div class="skill-tags" style="margin-bottom:1rem;">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C / C++</span>
+          <span class="skill-tag">Java (Android)</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">MicroPython</span>
+        </div>
+        <p class="skills-sub-label">Outils &amp; Plateformes</p>
+        <div class="skill-tags">
+          <span class="skill-tag">ESP8266 / ESP32</span>
+          <span class="skill-tag">Raspberry Pi</span>
+          <span class="skill-tag">Node-RED</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">YOLOv8</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">Git / GitHub</span>
+        </div>
+      </div>
+
+      <!-- Soft skills -->
+      <div class="skill-category reveal reveal-delay-3">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon"><i class="fa-solid fa-users"></i></div>
+          <h3>Soft Skills</h3>
+        </div>
+        <div class="soft-skill-item"><i class="fa-solid fa-lightbulb"></i><span>Curiosité technique et apprentissage continu</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Esprit d'analyse et résolution de problèmes</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-user-gear"></i><span>Autonomie dans la conduite de projets</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-comments"></i><span>Communication avec des non-informaticiens</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-calendar-check"></i><span>Gestion de projet (Gantt, SysML)</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-eye"></i><span>Vigilance et rigueur face aux risques cyber</span></div>
+        <div class="soft-skill-item"><i class="fa-solid fa-handshake"></i><span>Travail en équipe et collaboration</span></div>
+        <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--clr-border);">
+          <p class="skills-sub-label">FORMATIONS À VENIR (S7–S8)</p>
+          <div class="skill-tags">
+            <span class="skill-tag purple">Cryptographie</span>
+            <span class="skill-tag purple">Audit &amp; Pentest</span>
+            <span class="skill-tag purple">Analyse Forensique</span>
+            <span class="skill-tag purple">Cyberdéfense &amp; SOC</span>
+            <span class="skill-tag purple">Ingénierie Sociale</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FORMATION ===================== -->
+<section id="formation" style="background:var(--clr-surface);">
+  <div class="section-inner">
+    <div class="section-tag">Parcours académique</div>
+    <h2 class="section-title">Forma<span>tion</span></h2>
+    <div class="section-line"></div>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <p class="timeline-date">2025 – 2028 (en cours)</p>
+        <div class="timeline-card">
+          <span class="timeline-badge">Bac+5 · Diplôme CTI · Label SecNumedu</span>
+          <h3>Cycle Ingénieur en Cybersécurité</h3>
+          <p class="school">EIJV – École d'ingénieurs Jules Verne · Amiens, France</p>
+          <p>Administration Système, Réseaux et Sécurité des Systèmes d'Information.
+          Modules : cryptographie, audit, pentest, analyse forensique, gouvernance (ISO, RGPD),
+          cyberdéfense, SOC.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-dot green"></div>
+        <p class="timeline-date">2023 – 2025</p>
+        <div class="timeline-card">
+          <span class="timeline-badge green">DUT · Diplômée</span>
+          <h3>DUT Informatique – Option Embarquée</h3>
+          <p class="school">EST – École Supérieure de Technologie · Oujda, Maroc</p>
+          <p>Informatique, Électronique, IoT et Mathématiques appliquées.
+          Programmation embarquée (C/C++, MicroPython), réseaux, bases de données,
+          architecture des systèmes.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPÉRIENCES ===================== -->
+<section id="experiences">
+  <div class="section-inner">
+    <div class="section-tag">Terrain</div>
+    <h2 class="section-title">Expé<span>riences</span></h2>
+    <div class="section-line"></div>
+
+    <div class="exp-grid">
+
+      <div class="exp-card reveal">
+        <p class="exp-period"><i class="fa-solid fa-calendar"></i> Avril – Mai 2025 · Stage 2 mois</p>
+        <h3>Développeuse IoT &amp; IA – Smart City</h3>
+        <p class="exp-company">MAJAL Berkane – Société de Développement Local</p>
+        <ul class="exp-bullets">
+          <li>Maquette IoT : inondations, éclairage adaptatif, suivi bus RFID</li>
+          <li>Architecture MQTT distribuée (ESP32/ESP8266 ↔ Mosquitto ↔ Django)</li>
+          <li>Interface web Django avec RBAC citoyen / administrateur</li>
+          <li>Module de tri des déchets YOLOv8 sur Raspberry Pi 4 – précision 84–87%</li>
+        </ul>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span><span class="tech-tag">Django</span>
+          <span class="tech-tag">MQTT</span><span class="tech-tag">ESP32</span>
+          <span class="tech-tag">YOLOv8</span><span class="tech-tag">Raspberry Pi</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal reveal-delay-1">
+        <p class="exp-period"><i class="fa-solid fa-calendar"></i> Juillet 2024 · Stage 1 mois</p>
+        <h3>Data Analyst – Qualité de l'eau</h3>
+        <p class="exp-company">Alpamare Saïdia – Parc aquatique</p>
+        <ul class="exp-bullets">
+          <li>Dashboard interactif de suivi pH, chlore et métriques chimiques</li>
+          <li>Nettoyage et transformation des données Excel avec Pandas</li>
+          <li>Visualisations avec Seaborn, livraison en exécutable Windows (.exe)</li>
+        </ul>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span>
+          <span class="tech-tag">Seaborn</span><span class="tech-tag">PyInstaller</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJETS ===================== -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-tag">Réalisations</div>
+    <h2 class="section-title">Pro<span>jets</span></h2>
+    <div class="section-line"></div>
+
+    <!-- Filtres -->
+    <div class="projects-filter">
+      <button class="filter-btn active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="iot">IoT / Embarqué</button>
+      <button class="filter-btn" data-filter="security">Cybersécurité</button>
+      <button class="filter-btn" data-filter="web">Web / Mobile</button>
+      <button class="filter-btn" data-filter="ia">IA / Data</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+
+      <div class="project-card reveal" data-categories="web mobile" onclick="openModal('p7')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#071828,#0d3350);">
+          <span>📱</span><span class="project-num">#7 · 2026</span>
+        </div>
+        <div class="project-body">
+          <h3>GeoEvent – Application Android</h3>
+          <p>App Android de partage d'événements géolocalisés. Firebase, Google Maps, upload photos, filtrage par distance Haversine.</p>
+          <div class="project-tags">
+            <span class="project-tag">Java</span><span class="project-tag">Firebase</span>
+            <span class="project-tag">Google Maps</span><span class="project-tag">Android</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1" data-categories="iot ia web" onclick="openModal('p6')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#051520,#082840);">
+          <span>🏙️</span><span class="project-num">#6 · 2025</span>
+        </div>
+        <div class="project-body">
+          <h3>Smart Berkane – Ville Intelligente IoT</h3>
+          <p>Maquette smart city : inondations, éclairage, bus RFID, tri déchets YOLOv8, supervision Django MQTT avec RBAC.</p>
+          <div class="project-tags">
+            <span class="project-tag">MQTT</span><span class="project-tag">Django</span>
+            <span class="project-tag">YOLOv8</span><span class="project-tag">IoT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2" data-categories="security ia" onclick="openModal('p5')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0a0520,#1a0840);">
+          <span>🔐</span><span class="project-num">#5 · 2025</span>
+        </div>
+        <div class="project-body">
+          <h3>Contrôle d'accès Reconnaissance Faciale</h3>
+          <p>Système biométrique anti-spoofing (liveness EAR), journalisation MongoDB, alertes email, interface admin PyQt5.</p>
+          <div class="project-tags">
+            <span class="project-tag">OpenCV</span><span class="project-tag">dlib</span>
+            <span class="project-tag">MongoDB</span><span class="project-tag">Sécurité</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-categories="iot web" onclick="openModal('p4')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#051520,#083020);">
+          <span>📡</span><span class="project-num">#4</span>
+        </div>
+        <div class="project-body">
+          <h3>Supervision IoT – Node-RED + MQTT</h3>
+          <p>Dashboard temps réel DHT11/LDR, contrôle LED + servo via ESP8266 et Raspberry Pi. Latence &lt;0.5s.</p>
+          <div class="project-tags">
+            <span class="project-tag">Node-RED</span><span class="project-tag">MQTT</span>
+            <span class="project-tag">ESP8266</span><span class="project-tag">IoT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1" data-categories="iot ia" onclick="openModal('p3')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#051520,#082830);">
+          <span>🌡️</span><span class="project-num">#3</span>
+        </div>
+        <div class="project-body">
+          <h3>Station de Surveillance Environnementale</h3>
+          <p>Raspberry Pi Pico + DHT11/LDR. Stockage CSV et dashboard Tkinter interactif avec 6 modes de graphiques.</p>
+          <div class="project-tags">
+            <span class="project-tag">MicroPython</span><span class="project-tag">Tkinter</span>
+            <span class="project-tag">Pandas</span><span class="project-tag">Matplotlib</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2" data-categories="iot security" onclick="openModal('p2')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#150510,#280a08);">
+          <span>🚨</span><span class="project-num">#2</span>
+        </div>
+        <div class="project-body">
+          <h3>Alarme Intrusion PIR + WhatsApp</h3>
+          <p>Arduino + ESP8266 : détection PIR, alarme locale buzzer/LED, notification WhatsApp en &lt;5s via CallMeBot.</p>
+          <div class="project-tags">
+            <span class="project-tag">Arduino</span><span class="project-tag">ESP8266</span>
+            <span class="project-tag">API</span><span class="project-tag">Sécurité</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-categories="ia web" onclick="openModal('p1')">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#021520,#053050);">
+          <span>💧</span><span class="project-num">#1 · 2024</span>
+        </div>
+        <div class="project-body">
+          <h3>Dashboard Qualité de l'Eau – Aquapark</h3>
+          <p>Tableau de bord pH/chlore/métriques chimiques. Pandas + Seaborn, livré en exécutable Windows .exe autonome.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">Pandas</span>
+            <span class="project-tag">Seaborn</span><span class="project-tag">PyInstaller</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Prenons contact</div>
+    <h2 class="section-title">Con<span>tact</span></h2>
+    <div class="section-line"></div>
+
+    <div class="contact-wrapper">
+
+      <div class="contact-info reveal">
+        <h3>Discutons de votre alternance !</h3>
+        <p>
+          Je recherche activement un <strong>contrat d'apprentissage 24 mois en cybersécurité</strong>
+          à partir de 2025 (rythme 1 sem. école / 1–2 sem. entreprise).<br /><br />
+          N'hésitez pas à me contacter pour discuter de vos besoins !
+        </p>
+        <div class="contact-links">
+          <a href="mailto:laylakaddani2@gmail.com" class="contact-link">
+            <div class="contact-link-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-link-text">
+              <strong>Email</strong>
+              <span>laylakaddani2@gmail.com</span>
+            </div>
+          </a>
+          <a href="tel:+33753892850" class="contact-link">
+            <div class="contact-link-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-link-text">
+              <strong>Téléphone</strong>
+              <span>+33 7 53 89 28 50</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/laylakaddani125294306/" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon"><i class="fa-brands fa-linkedin"></i></div>
+            <div class="contact-link-text">
+              <strong>LinkedIn</strong>
+              <span>linkedin.com/in/laylakaddani125294306/</span>
+            </div>
+          </a>
+          <a href="https://github.com/LaylaKaddani" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon"><i class="fa-brands fa-github"></i></div>
+            <div class="contact-link-text">
+              <strong>GitHub</strong>
+              <span>github.com/LaylaKaddani</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="contact-form-wrap reveal reveal-delay-1">
+        <div class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="contact-nom">Nom &amp; Prénom *</label>
+            <input type="text" id="contact-nom" placeholder="Jean Martin" />
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email *</label>
+            <input type="email" id="contact-email" placeholder="jean.martin@entreprise.fr" />
+          </div>
+          <div class="form-group">
+            <label for="contact-sujet">Sujet</label>
+            <input type="text" id="contact-sujet" placeholder="Proposition d'alternance en cybersécurité" />
+          </div>
+          <div class="form-group">
+            <label for="contact-msg">Message *</label>
+            <textarea id="contact-msg" placeholder="Bonjour Layla, nous avons un poste..."></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="sendForm()" style="width:100%;justify-content:center;">
+            <i class="fa-solid fa-paper-plane"></i> Envoyer le message
+          </button>
+          <p id="form-feedback"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <p>
+    Conçu &amp; développé par <a href="#hero">Layla KADDANI</a>
+    &nbsp;·&nbsp; Exercice 3 – TP n°4 Programmation Web
+  </p>
+  <p class="sub">HTML · CSS (Flexbox) · JavaScript · 2026</p>
+</footer>
+
+<!-- Bouton scroll-to-top (ancre vers le haut) -->
+<a href="#hero" id="scroll-top" aria-label="Revenir en haut">
+  <i class="fa-solid fa-arrow-up"></i>
+</a>
+
+<!-- ===================== MODALE PROJETS ===================== -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- JavaScript -->
+<script src="js/main.js"></script>
+</body>
+</html>

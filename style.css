@@ -1,0 +1,588 @@
+/* ============================================================
+   style.css — Portfolio Layla KADDANI
+   Auteur     : Layla KADDANI
+   Description: Styles globaux, variables, reset et composants
+                partagés entre toutes les pages.
+   ============================================================ */
+
+/* ─────────────────────────────────────────
+   1. VARIABLES CSS
+───────────────────────────────────────── */
+:root {
+  /* Palette de couleurs */
+  --clr-bg      : #020d1a;   /* fond principal — bleu nuit profond  */
+  --clr-surface : #071828;   /* fond sections alternées             */
+  --clr-card    : #0a2035;   /* fond des cartes                     */
+  --clr-border  : #0e3a5c;   /* bordures discrètes                  */
+
+  /* Accents */
+  --clr-accent  : #00d4ff;   /* cyan vif — couleur principale       */
+  --clr-accent2 : #00ff9d;   /* vert menthe — second accent         */
+  --clr-accent3 : #7b5ea7;   /* violet doux — troisième accent      */
+
+  /* Textes */
+  --clr-text    : #c8e6f7;   /* texte courant                       */
+  --clr-muted   : #5a8fa8;   /* texte secondaire / libellés         */
+  --clr-heading : #e8f4fd;   /* titres et noms                      */
+
+  /* Typographies */
+  --font-display: 'Syne', sans-serif;
+  --font-mono   : 'Space Mono', monospace;
+  --font-body   : 'DM Sans', sans-serif;
+
+  /* Divers */
+  --radius      : 12px;
+  --transition  : 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card : 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ─────────────────────────────────────────
+   2. RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing : border-box;
+  margin     : 0;
+  padding    : 0;
+}
+
+html {
+  scroll-behavior : smooth;
+  font-size       : 16px;
+}
+
+body {
+  background  : var(--clr-bg);
+  color       : var(--clr-text);
+  font-family : var(--font-body);
+  line-height : 1.7;
+  overflow-x  : hidden;
+}
+
+img   { max-width: 100%; display: block; }
+a     { color: inherit; text-decoration: none; }
+ul    { list-style: none; }
+
+/* ─────────────────────────────────────────
+   3. SCROLLBAR & SÉLECTION
+───────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb  { background: var(--clr-accent); border-radius: 3px; }
+::selection                { background: var(--clr-accent); color: var(--clr-bg); }
+
+/* ─────────────────────────────────────────
+   4. GRILLE D'ARRIÈRE-PLAN SUBTILE
+───────────────────────────────────────── */
+body::before {
+  content        : '';
+  position       : fixed;
+  inset          : 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size : 60px 60px;
+  pointer-events  : none;
+  z-index         : 0;
+}
+
+/* ─────────────────────────────────────────
+   5. NAVIGATION FIXE
+───────────────────────────────────────── */
+.navbar {
+  position        : fixed;
+  top             : 0;
+  left            : 0;
+  right           : 0;
+  z-index         : 1000;
+  display         : flex;
+  align-items     : center;
+  justify-content : space-between;
+  padding         : 1rem 2.5rem;
+  background      : rgba(2, 13, 26, 0.88);
+  backdrop-filter : blur(18px);
+  border-bottom   : 1px solid var(--clr-border);
+  transition      : var(--transition);
+}
+
+/* Logo */
+.nav-logo {
+  font-family    : var(--font-mono);
+  font-size      : 1rem;
+  color          : var(--clr-accent);
+  letter-spacing : 0.08em;
+}
+.nav-logo span { color: var(--clr-accent2); }
+
+/* Liens de navigation */
+.nav-links {
+  display : flex;
+  gap     : 2rem;
+}
+
+.nav-links a {
+  font-family    : var(--font-mono);
+  font-size      : 0.76rem;
+  color          : var(--clr-muted);
+  letter-spacing : 0.1em;
+  text-transform : uppercase;
+  transition     : color var(--transition);
+  position       : relative;
+  padding-bottom : 2px;
+}
+
+/* Soulignement animé */
+.nav-links a::after {
+  content    : '';
+  position   : absolute;
+  bottom     : -4px;
+  left       : 0;
+  width      : 0;
+  height     : 1px;
+  background : var(--clr-accent);
+  transition : width var(--transition);
+}
+.nav-links a:hover,
+.nav-links a.active             { color: var(--clr-accent); }
+.nav-links a:hover::after,
+.nav-links a.active::after      { width: 100%; }
+
+/* Bouton hamburger (mobile) */
+.hamburger {
+  display        : none;
+  flex-direction : column;
+  gap            : 5px;
+  cursor         : pointer;
+  background     : none;
+  border         : none;
+  z-index        : 1001;
+}
+.hamburger span {
+  display    : block;
+  width      : 24px;
+  height     : 2px;
+  background : var(--clr-accent);
+  transition : var(--transition);
+}
+
+/* ─────────────────────────────────────────
+   6. BOUTONS
+───────────────────────────────────────── */
+.btn {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : 0.5rem;
+  padding        : 0.85rem 2rem;
+  border-radius  : var(--radius);
+  font-family    : var(--font-mono);
+  font-size      : 0.82rem;
+  font-weight    : 700;
+  letter-spacing : 0.06em;
+  cursor         : pointer;
+  transition     : var(--transition);
+  border         : none;
+}
+
+.btn-primary {
+  background : var(--clr-accent);
+  color      : var(--clr-bg);
+}
+.btn-primary:hover {
+  background : #00b8d9;
+  transform  : translateY(-2px);
+  box-shadow : 0 0 30px rgba(0,212,255,0.4);
+}
+
+.btn-outline {
+  background : transparent;
+  color      : var(--clr-accent);
+  border     : 1px solid var(--clr-accent);
+}
+.btn-outline:hover {
+  background : rgba(0,212,255,0.07);
+  transform  : translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   7. STRUCTURE DES SECTIONS
+───────────────────────────────────────── */
+section {
+  position : relative;
+  z-index  : 1;
+  padding  : 6rem 2.5rem;
+}
+
+.section-inner {
+  max-width : 1200px;
+  margin    : 0 auto;
+}
+
+/* Étiquette catégorie */
+.section-tag {
+  font-family    : var(--font-mono);
+  font-size      : 0.72rem;
+  color          : var(--clr-accent2);
+  letter-spacing : 0.2em;
+  text-transform : uppercase;
+  margin-bottom  : 0.75rem;
+  display        : flex;
+  align-items    : center;
+  gap            : 0.75rem;
+}
+.section-tag::before {
+  content    : '';
+  display    : block;
+  width      : 30px;
+  height     : 1px;
+  background : var(--clr-accent2);
+}
+
+/* Titre principal de section */
+.section-title {
+  font-family   : var(--font-display);
+  font-size     : clamp(2rem, 4vw, 3rem);
+  font-weight   : 800;
+  color         : var(--clr-heading);
+  margin-bottom : 0.5rem;
+}
+.section-title span { color: var(--clr-accent); }
+
+/* Ligne décorative */
+.section-line {
+  width         : 60px;
+  height        : 3px;
+  background    : linear-gradient(90deg, var(--clr-accent), var(--clr-accent2));
+  border-radius : 2px;
+  margin-bottom : 3rem;
+}
+
+/* ─────────────────────────────────────────
+   8. CARTES GÉNÉRIQUES
+───────────────────────────────────────── */
+.card {
+  background    : var(--clr-card);
+  border        : 1px solid var(--clr-border);
+  border-radius : var(--radius);
+  padding       : 2rem;
+  transition    : var(--transition);
+}
+.card:hover {
+  border-color : rgba(0,212,255,0.4);
+  box-shadow   : var(--shadow-card), 0 0 30px rgba(0,212,255,0.08);
+  transform    : translateY(-4px);
+}
+
+/* ─────────────────────────────────────────
+   9. TAGS TECHNOLOGIES
+───────────────────────────────────────── */
+.tech-tag {
+  font-family   : var(--font-mono);
+  font-size     : 0.68rem;
+  padding       : 0.2rem 0.65rem;
+  border-radius : 4px;
+  background    : rgba(0,212,255,0.07);
+  border        : 1px solid rgba(0,212,255,0.2);
+  color         : var(--clr-accent);
+  transition    : var(--transition);
+}
+.tech-tag:hover { background: rgba(0,212,255,0.15); }
+
+.tech-stack {
+  display   : flex;
+  flex-wrap : wrap;
+  gap       : 0.4rem;
+}
+
+/* ─────────────────────────────────────────
+   10. BARRES DE PROGRESSION
+───────────────────────────────────────── */
+.skill-bar-item { margin-bottom: 1.1rem; }
+
+.skill-bar-label {
+  display         : flex;
+  justify-content : space-between;
+  margin-bottom   : 0.4rem;
+  font-size       : 0.85rem;
+  color           : var(--clr-text);
+}
+.skill-bar-label span:last-child {
+  font-family : var(--font-mono);
+  font-size   : 0.72rem;
+  color       : var(--clr-accent);
+}
+
+.skill-bar-track {
+  height        : 5px;
+  background    : rgba(255,255,255,0.06);
+  border-radius : 10px;
+  overflow      : hidden;
+}
+
+/* La largeur est animée via JS au scroll (data-width) */
+.skill-bar-fill {
+  height        : 100%;
+  border-radius : 10px;
+  background    : linear-gradient(90deg, var(--clr-accent), var(--clr-accent2));
+  width         : 0;
+  transition    : width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────────────────────────────────────
+   11. TIMELINE
+───────────────────────────────────────── */
+.timeline {
+  position     : relative;
+  padding-left : 2.5rem;
+}
+.timeline::before {
+  content    : '';
+  position   : absolute;
+  left       : 0;
+  top        : 0;
+  bottom     : 0;
+  width      : 2px;
+  background : linear-gradient(to bottom, var(--clr-accent), var(--clr-accent2), transparent);
+}
+
+.timeline-item {
+  position      : relative;
+  margin-bottom : 3rem;
+}
+
+.timeline-dot {
+  position      : absolute;
+  left          : -2.75rem;
+  top           : 0.4rem;
+  width         : 16px;
+  height        : 16px;
+  border-radius : 50%;
+  background    : var(--clr-accent);
+  border        : 3px solid var(--clr-bg);
+  box-shadow    : 0 0 12px var(--clr-accent);
+}
+.timeline-dot.green {
+  background : var(--clr-accent2);
+  box-shadow : 0 0 12px var(--clr-accent2);
+}
+
+.timeline-date {
+  font-family    : var(--font-mono);
+  font-size      : 0.72rem;
+  color          : var(--clr-accent);
+  letter-spacing : 0.1em;
+  margin-bottom  : 0.5rem;
+}
+
+.timeline-card {
+  background    : var(--clr-card);
+  border        : 1px solid var(--clr-border);
+  border-radius : var(--radius);
+  padding       : 1.75rem;
+  transition    : var(--transition);
+}
+.timeline-card:hover {
+  border-color : var(--clr-accent);
+  transform    : translateX(6px);
+}
+.timeline-card h3 {
+  font-family   : var(--font-display);
+  font-size     : 1.1rem;
+  font-weight   : 700;
+  color         : var(--clr-heading);
+  margin-bottom : 0.25rem;
+}
+.timeline-card .school {
+  font-size     : 0.85rem;
+  color         : var(--clr-accent2);
+  margin-bottom : 0.75rem;
+}
+.timeline-card p { font-size: 0.9rem; color: var(--clr-muted); }
+
+.timeline-badge {
+  display       : inline-block;
+  font-family   : var(--font-mono);
+  font-size     : 0.68rem;
+  padding       : 0.2rem 0.7rem;
+  border-radius : 100px;
+  background    : rgba(0,212,255,0.1);
+  border        : 1px solid rgba(0,212,255,0.3);
+  color         : var(--clr-accent);
+  margin-bottom : 0.75rem;
+}
+.timeline-badge.green {
+  background   : rgba(0,255,157,0.08);
+  border-color : rgba(0,255,157,0.3);
+  color        : var(--clr-accent2);
+}
+
+/* ─────────────────────────────────────────
+   12. ANIMATIONS
+───────────────────────────────────────── */
+@keyframes fade-up   { from { opacity:0; transform:translateY(30px);  } to { opacity:1; transform:translateY(0);  } }
+@keyframes fade-down { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0);  } }
+@keyframes spin      { to   { transform: rotate(360deg); } }
+@keyframes blink     { 0%,100% { opacity:1; } 50% { opacity:0; } }
+@keyframes pulse-glow{
+  0%,100% { transform:scale(1);   opacity:1; }
+  50%      { transform:scale(1.1); opacity:0.7; }
+}
+
+/* Scroll reveal : état initial → visible */
+.reveal {
+  opacity   : 0;
+  transform : translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible        { opacity:1; transform:translateY(0); }
+.reveal-delay-1        { transition-delay: 0.1s; }
+.reveal-delay-2        { transition-delay: 0.2s; }
+.reveal-delay-3        { transition-delay: 0.3s; }
+
+/* ─────────────────────────────────────────
+   13. BOUTON SCROLL-TO-TOP
+───────────────────────────────────────── */
+#scroll-top {
+  position       : fixed;
+  bottom         : 2rem;
+  right          : 2rem;
+  width          : 46px;
+  height         : 46px;
+  border-radius  : 50%;
+  background     : var(--clr-accent);
+  color          : var(--clr-bg);
+  border         : none;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 1rem;
+  z-index        : 999;
+  opacity        : 0;
+  transform      : translateY(20px);
+  transition     : var(--transition);
+  box-shadow     : 0 0 20px rgba(0,212,255,0.4);
+}
+#scroll-top.visible  { opacity:1; transform:translateY(0); }
+#scroll-top:hover    { transform:translateY(-3px); background:#00b8d9; }
+
+/* ─────────────────────────────────────────
+   14. MODAL PROJETS
+───────────────────────────────────────── */
+.modal-overlay {
+  position        : fixed;
+  inset           : 0;
+  background      : rgba(0,0,0,0.85);
+  backdrop-filter : blur(10px);
+  z-index         : 2000;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  padding         : 2rem;
+  opacity         : 0;
+  pointer-events  : none;
+  transition      : opacity 0.3s ease;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+
+.modal {
+  position      : relative;
+  background    : var(--clr-surface);
+  border        : 1px solid var(--clr-border);
+  border-radius : 16px;
+  padding       : 2.5rem;
+  max-width     : 720px;
+  width         : 100%;
+  max-height    : 85vh;
+  overflow-y    : auto;
+  transform     : scale(0.95) translateY(20px);
+  transition    : transform 0.3s ease;
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-close {
+  position        : absolute;
+  top             : 1rem;
+  right           : 1rem;
+  width           : 36px;
+  height          : 36px;
+  border-radius   : 50%;
+  background      : rgba(255,255,255,0.05);
+  border          : 1px solid var(--clr-border);
+  color           : var(--clr-muted);
+  font-size       : 1.1rem;
+  cursor          : pointer;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  transition      : var(--transition);
+}
+.modal-close:hover { border-color:var(--clr-accent); color:var(--clr-accent); }
+
+.modal-emoji  { font-size:3rem; margin-bottom:1rem; display:block; }
+.modal h2     { font-family:var(--font-display); font-size:1.5rem; font-weight:800; color:var(--clr-heading); margin-bottom:0.25rem; }
+.modal-period { font-family:var(--font-mono); font-size:0.75rem; color:var(--clr-accent); margin-bottom:1.5rem; }
+
+.modal-section          { margin-bottom:1.5rem; }
+.modal-section h4       { font-family:var(--font-display); font-size:0.9rem; color:var(--clr-accent2); margin-bottom:0.6rem; text-transform:uppercase; letter-spacing:0.1em; }
+.modal-section p,
+.modal-section li       { font-size:0.9rem; color:var(--clr-muted); line-height:1.8; }
+.modal-section ul       { list-style:none; }
+.modal-section ul li    { padding:0.25rem 0 0.25rem 1.2rem; position:relative; }
+.modal-section ul li::before { content:'▸'; position:absolute; left:0; color:var(--clr-accent); }
+
+.modal-tech-tags { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.modal-tech-tag  {
+  font-family   : var(--font-mono);
+  font-size     : 0.72rem;
+  padding       : 0.3rem 0.85rem;
+  border-radius : 100px;
+  background    : rgba(0,212,255,0.08);
+  border        : 1px solid rgba(0,212,255,0.25);
+  color         : var(--clr-accent);
+}
+
+/* ─────────────────────────────────────────
+   15. FOOTER
+───────────────────────────────────────── */
+footer {
+  background  : var(--clr-surface);
+  border-top  : 1px solid var(--clr-border);
+  padding     : 2rem 2.5rem;
+  text-align  : center;
+  position    : relative;
+  z-index     : 1;
+}
+footer p        { font-family:var(--font-mono); font-size:0.75rem; color:var(--clr-muted); }
+footer a        { color:var(--clr-accent); }
+footer .sub     { color:var(--clr-border); font-size:0.7rem; margin-top:0.3rem; }
+
+/* ─────────────────────────────────────────
+   16. RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Menu mobile : panneau latéral */
+  .nav-links {
+    position        : fixed;
+    top             : 0;
+    right           : -100%;
+    height          : 100vh;
+    width           : 260px;
+    background      : var(--clr-surface);
+    border-left     : 1px solid var(--clr-border);
+    flex-direction  : column;
+    align-items     : center;
+    justify-content : center;
+    gap             : 2.5rem;
+    transition      : right var(--transition);
+    z-index         : 999;
+  }
+  .nav-links.open { right: 0; }
+  .nav-links a    { font-size: 1rem; }
+  .hamburger      { display: flex; }
+
+  section { padding: 4rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  section        { padding: 3.5rem 1.25rem; }
+  .navbar        { padding: 0.9rem 1.25rem; }
+  .section-title { font-size: 1.8rem; }
+}
